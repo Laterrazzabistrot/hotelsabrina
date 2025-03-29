@@ -1,4 +1,3 @@
-
 const sheetId = "1v7aPG_8-IjxFr40_zWL6_0-cT-H8F2ny1vBlICTYjb0";
 const sheetName = "Temperature";
 const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
@@ -24,9 +23,20 @@ fetch(url)
 
     rows.forEach(row => {
       const tr = document.createElement("tr");
-      row.c.forEach(cell => {
+      row.c.forEach((cell, index) => {
         const td = document.createElement("td");
-        td.textContent = cell ? cell.v : "";
+
+        if (cell) {
+          if (cell.f) {
+            // Usa il valore formattato, utile per le date
+            td.textContent = cell.f;
+          } else {
+            td.textContent = cell.v;
+          }
+        } else {
+          td.textContent = "";
+        }
+
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
