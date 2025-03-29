@@ -69,6 +69,6 @@ td {
   font-size: 0.9em;
 }
 tr:nth-child(even) td {
-  background-color: #f1f1ec;
+  background-color: #d3d3d3;
 }
 
