@@ -1,3 +1,4 @@
+
 const sheetId = "1v7aPG_8-IjxFr40_zWL6_0-cT-H8F2ny1vBlICTYjb0";
 const sheetName = "Temperature";
 const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
@@ -28,7 +29,6 @@ fetch(url)
 
         if (cell) {
           if (cell.f) {
-            // Usa il valore formattato, utile per le date
             td.textContent = cell.f;
           } else {
             td.textContent = cell.v;

@@ -1,0 +1,16 @@
+{
+  "name": "HACCP Hotel Sabrina",
+  "short_name": "HACCP Sabrina",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f8f5",
+  "theme_color": "#205896",
+  "description": "Sistema automatizzato HACCP - Hotel Sabrina",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
