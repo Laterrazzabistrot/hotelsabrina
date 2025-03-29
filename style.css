@@ -68,3 +68,7 @@ td {
   border: 1px solid #ccc;
   font-size: 0.9em;
 }
+tr:nth-child(even) td {
+  background-color: #f1f1ec;
+}
+
