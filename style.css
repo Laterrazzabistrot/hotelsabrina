@@ -71,4 +71,12 @@ td {
 tr:nth-child(even) td {
   background-color: #d3d3d3;
 }
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  color: #444;
+  margin: 30px 20px;
+  line-height: 1.6;
+}
+
 
