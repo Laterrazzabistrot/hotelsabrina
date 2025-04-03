@@ -1,10 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Test Invio Non Conformità</title>
+  <title>Test Form Non Conformità</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 2em auto; background: #f7f7f7; padding: 2em; border-radius: 10px; }
+    h2 { text-align: center; }
+    button { padding: 10px 20px; background-color: #006400; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
+    label { font-weight: bold; }
+    #risultato { margin-top: 1em; font-weight: bold; text-align: center; }
+  </style>
 </head>
-<body style="font-family: Arial; max-width: 600px; margin: 2em auto;">
+<body>
   <h2>🧪 Test Form Non Conformità</h2>
 
   <form id="formConformita">
@@ -27,10 +35,10 @@
       <option value="E">E - Uso immediato</option>
     </select><br><br>
 
-    <button type="submit" style="padding: 10px 20px;">✅ Invia</button>
+    <button type="submit">✅ Invia</button>
   </form>
 
-  <p id="risultato" style="margin-top: 1em;"></p>
+  <p id="risultato"></p>
 
   <script>
     document.getElementById("formConformita").addEventListener("submit", function(e) {
@@ -50,10 +58,10 @@
         },
         body: JSON.stringify(data)
       })
-      .then(() => {
+      .then(response => {
         document.getElementById("risultato").textContent = "✅ Dati inviati! Controlla il foglio.";
       })
-      .catch((error) => {
+      .catch(error => {
         document.getElementById("risultato").textContent = "❌ Errore nell'invio: " + error;
       });
     });
