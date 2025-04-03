@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Inserimento Non Conformità</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 2em;
+    }
+    .container {
+      background-color: #fff;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #006400;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1em;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 0.5em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    button {
+      background-color: #006400;
+      color: white;
+      cursor: pointer;
+      margin-top: 1.5em;
+    }
+    button:hover {
+      background-color: #228B22;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Registro Non Conformità</h2>
+  <form id="formConformita">
+    <label for="impianto">Seleziona Impianto:</label>
+    <select id="impianto" name="impianto">
+      <option>frigo 1 cucina</option>
+      <option>frigo 2 cucina</option>
+      <option>congelatore cucina</option>
+      <option>frigo sala</option>
+      <option>frigo dispensa</option>
+      <option>congelatore dispensa</option>
+      <option>congelatore verdure</option>
+      <option>congelatore pozzo</option>
+      <option>congelatore vetrina</option>
+    </select>
+
+    <label for="giorno">Giorno del mese:</label>
+    <select id="giorno" name="giorno">
+      <!-- genera 1-31 -->
+      <script>
+        for (let i = 1; i <= 31; i++) {
+          document.write(`<option value="${i}">${i}</option>`);
+        }
+      </script>
+    </select>
+
+    <label for="nonconformita">Non Conformità:</label>
+    <select id="nonconformita" name="nonconformita">
+      <option value="A">A - Apparecchio fuori limite ma alimenti OK</option>
+      <option value="B">B - Apparecchio e alimenti fuori limite</option>
+    </select>
+
+    <label for="azione">Azione Correttiva:</label>
+    <select id="azione" name="azione">
+      <option value="C">C - Trasferimento alimenti e riparazione</option>
+      <option value="D">D - Eliminazione alimenti e riparazione</option>
+      <option value="E">E - Impiego prodotti e riparazione</option>
+    </select>
+
+    <button type="submit">Invia</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById("formConformita").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = {
+      impianto: document.getElementById("impianto").value,
+      giorno: parseInt(document.getElementById("giorno").value),
+      nonconformita: document.getElementById("nonconformita").value,
+      azione: document.getElementById("azione").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbw2t-M-KTuT6KSIB1mBPb94YFMCMy3tlfj9HFf45hrSVUE23eI3Z_xQYnh-EiizD8ta/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    alert("✅ Inserimento registrato! Puoi chiudere la finestra.");
+  });
+</script>
+</body>
+</html>
