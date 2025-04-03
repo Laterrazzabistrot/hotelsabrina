@@ -3,42 +3,88 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Test Form Non Conformità</title>
+  <title>Modulo Inserimento Non Conformità</title>
   <style>
-    body { font-family: Arial; max-width: 600px; margin: 2em auto; background: #f7f7f7; padding: 2em; border-radius: 10px; }
-    h2 { text-align: center; }
-    button { padding: 10px 20px; background-color: #006400; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
-    label { font-weight: bold; }
-    #risultato { margin-top: 1em; font-weight: bold; text-align: center; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2em auto;
+      background: #f7f7f7;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #205896;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 1em;
+      display: block;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 0.5em;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #205896;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1.5em;
+    }
+    button:hover {
+      background-color: #1a4471;
+    }
+    #risultato {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1em;
+    }
   </style>
 </head>
 <body>
-  <h2>🧪 Test Form Non Conformità</h2>
+  <h2>➕ Modulo Inserimento Non Conformità</h2>
 
   <form id="formConformita">
-    <label>Impianto (es. frigo 1 cucina):</label><br>
-    <input type="text" id="impianto" value="frigo 1 cucina" style="width: 100%;"><br><br>
+    <label for="impianto">Impianto:</label>
+    <select id="impianto">
+      <option value="frigo 1 cucina">Frigo 1 Cucina</option>
+      <option value="frigo 2 cucina">Frigo 2 Cucina</option>
+      <option value="congelatore cucina">Congelatore Cucina</option>
+      <option value="frigo sala">Frigo Sala</option>
+      <option value="frigo dispensa">Frigo Dispensa</option>
+      <option value="congelatore dispensa">Congelatore Dispensa</option>
+      <option value="congelatore verdure">Congelatore Verdure</option>
+      <option value="congelatore pozzo">Congelatore Pozzo</option>
+      <option value="congelatore vetrina">Congelatore Vetrina</option>
+    </select>
 
-    <label>Giorno del mese:</label><br>
-    <input type="number" id="giorno" value="1" min="1" max="31" style="width: 100%;"><br><br>
+    <label for="giorno">Giorno del mese:</label>
+    <input type="number" id="giorno" value="1" min="1" max="31" required>
 
-    <label>Non conformità:</label><br>
-    <select id="nonconformita" style="width: 100%;">
-      <option value="A">A - Fuori limite ma alimenti ok</option>
-      <option value="B">B - Fuori limite anche alimenti</option>
-    </select><br><br>
+    <label for="nonconformita">Non Conformità:</label>
+    <select id="nonconformita">
+      <option value="A">A - Apparecchio fuori limite ma alimenti ok</option>
+      <option value="B">B - Apparecchio e alimenti fuori limite</option>
+    </select>
 
-    <label>Azione correttiva:</label><br>
-    <select id="azione" style="width: 100%;">
-      <option value="C">C - Trasferimento</option>
-      <option value="D">D - Eliminazione</option>
-      <option value="E">E - Uso immediato</option>
-    </select><br><br>
+    <label for="azione">Azione Correttiva:</label>
+    <select id="azione">
+      <option value="C">C - Trasferimento alimenti e riparazione</option>
+      <option value="D">D - Eliminazione alimenti e riparazione</option>
+      <option value="E">E - Uso immediato dei prodotti e riparazione</option>
+    </select>
 
-    <button type="submit">✅ Invia</button>
+    <button type="submit">✅ Invia Non Conformità</button>
   </form>
 
-  <p id="risultato"></p>
+  <div id="risultato"></div>
 
   <script>
     document.getElementById("formConformita").addEventListener("submit", function(e) {
@@ -60,7 +106,7 @@
         body: JSON.stringify(data)
       });
 
-      document.getElementById("risultato").textContent = "✅ Dati inviati! Controlla il foglio.";
+      document.getElementById("risultato").textContent = "✅ Dati inviati! Controlla il foglio Google.";
     });
   </script>
 </body>
