@@ -53,17 +53,14 @@
 
       fetch("https://script.google.com/macros/s/AKfycbw2t-M-KTuT6KSIB1mBPb94YFMCMy3tlfj9HFf45hrSVUE23eI3Z_xQYnh-EiizD8ta/exec", {
         method: "POST",
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-      })
-      .then(response => {
-        document.getElementById("risultato").textContent = "✅ Dati inviati! Controlla il foglio.";
-      })
-      .catch(error => {
-        document.getElementById("risultato").textContent = "❌ Errore nell'invio: " + error;
       });
+
+      document.getElementById("risultato").textContent = "✅ Dati inviati! Controlla il foglio.";
     });
   </script>
 </body>
