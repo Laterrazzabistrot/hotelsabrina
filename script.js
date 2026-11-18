@@ -193,11 +193,52 @@ function chooseMonth(y, m) {
   render();
 }
 
+// Fallback JSONP: permette la lettura GViz anche da anteprime file://,
+// dove Chrome può impedire le richieste fetch per motivi CORS.
+function loadViaJsonp() {
+  return new Promise((resolve, reject) => {
+    const callbackName = "sabrinaGviz_" + Date.now();
+    const script = document.createElement("script");
+    let timer;
+    const cleanup = () => {
+      clearTimeout(timer);
+      script.remove();
+      delete window[callbackName];
+    };
+    window[callbackName] = data => {
+      cleanup();
+      if (!data || data.status === "error" || !data.table) {
+        reject(new Error("Google Sheets non ha restituito una tabella valida"));
+      } else resolve(data.table);
+    };
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Impossibile raggiungere Google Sheets"));
+    };
+    timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("Tempo di attesa Google Sheets scaduto"));
+    }, 15000);
+    script.src = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&tqx=${encodeURIComponent("out:json;responseHandler:" + callbackName)}`;
+    document.head.appendChild(script);
+  });
+}
+
 async function loadTemperatures() {
   try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const table = parseVisualizationResponse(await response.text());
+    let table;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      table = parseVisualizationResponse(await response.text());
+    } catch (fetchError) {
+      console.warn("Lettura fetch non riuscita, provo il metodo alternativo:", fetchError);
+      table = await loadViaJsonp();
+    }
+    if (!table || !Array.isArray(table.cols) || !Array.isArray(table.rows)) {
+      throw new Error("Formato tabella non valido");
+    }
+    state.error = null;
     state.headers = table.cols.map(c => c.label || c.id || "");
     const dateColumn = getDateColumn(table.cols);
     state.entries = [];
